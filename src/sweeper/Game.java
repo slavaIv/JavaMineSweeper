@@ -2,19 +2,19 @@ package sweeper;
 
 public class Game {
 
-    Matrix bombMap;
+    private Bomb bomb;
 
-    public void start() {
-        bombMap = new Matrix(Box.ZERO);
-        bombMap.set(new Coord(4, 8), Box.BOMBED);
+    public Game(int cols, int rows, int bombs) {
+        Ranges.setSize(new Coord(cols, rows));
+        bomb = new Bomb(bombs);
     }
 
-    public Game(int cols, int rows) {
-        Ranges.setSize(new Coord(cols, rows));
+    public void start() {
+        bomb.start();
     }
 
     public Box getBox(Coord coord) {
-        return bombMap.get(coord);
+        return bomb.get(coord);
     }
 
 }
