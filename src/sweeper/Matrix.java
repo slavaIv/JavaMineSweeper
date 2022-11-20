@@ -11,7 +11,7 @@ class Matrix {
         }
     }
 
-    public Box get(Coord coord) {
+    public Box getBox(Coord coord) {
         if(Ranges.inRange(coord)) {
             return matrix[coord.x][coord.y];
         }
