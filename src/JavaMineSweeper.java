@@ -1,10 +1,13 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputAdapter;
@@ -24,6 +27,7 @@ public class JavaMineSweeper extends JFrame {
     private Game game;
 
     private JPanel panel;
+    private JLabel label;
 
     public static void main(String[] args) {
         new JavaMineSweeper();
@@ -35,7 +39,15 @@ public class JavaMineSweeper extends JFrame {
         game.start();
         setImages();
         initPanel();
+        initLabel();
         initFrame();
+    }
+
+    private void initLabel() {
+        label = new JLabel(getMessage());
+        Font font = new Font("JetBrains Mono Regular", Font.BOLD, 20);
+        label.setFont(font);
+        add(label, BorderLayout.SOUTH);
     }
 
     private void initPanel() {
@@ -69,6 +81,7 @@ public class JavaMineSweeper extends JFrame {
                         game.start();
                         break;
                 }
+                label.setText(getMessage());
                 panel.repaint();
             }
         });
@@ -97,6 +110,23 @@ public class JavaMineSweeper extends JFrame {
         String fileName = "img/" + name + ".png";
         ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
         return icon.getImage();
+    }
+
+    private String getMessage() {
+        switch(game.getState()) {
+            case BOMBED:
+                return "Boom!!! You've lost!";
+            case WIN:
+                return "Congratulation!! You win!!";            
+            case PLAYING:
+            default:
+                if(game.getTotalFlags() == 0) {
+                    return "Welcome to JavaMineSweeper!";
+                }
+                else {
+                    return "Flagged " + game.getTotalFlags() + " of " + game.getTotalBombs() + " bombs.";
+                }
+        }
     }
 
 }

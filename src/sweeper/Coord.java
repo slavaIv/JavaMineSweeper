@@ -14,8 +14,7 @@ public class Coord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coord coord = (Coord) o;
-        return x == coord.x &&
-                y == coord.y;
+        return x == coord.x && y == coord.y;
     }
     
 }
